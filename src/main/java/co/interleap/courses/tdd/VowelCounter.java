@@ -14,10 +14,14 @@ public class VowelCounter {
         int counter = 0;
         String[] arr = text.split("");
         for(String letter : arr) {
-            if(VOWEL_SET.contains(letter)) {
+            if(isAVowel(letter)) {
                 counter += 1;
             }
         }
         return counter;
     }
-}
+
+    private boolean isAVowel(String letter) {
+        return VOWEL_SET.contains(letter);
+    }
+ }
