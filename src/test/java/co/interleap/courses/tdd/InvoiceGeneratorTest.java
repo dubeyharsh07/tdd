@@ -3,38 +3,26 @@ package co.interleap.courses.tdd;
 
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.Assert.assertEquals;
 
 public class InvoiceGeneratorTest {
 
     @Test
-    public void shouldTestEmptyDistanceValue(){
-        assertEquals(0, new InvoiceGenerator().generateInvoice(0,0),0.1);
+    public void shouldGenerateInvoiceForGivenATime(){
+        Map<Double,Double> rideDetails = new HashMap<>();
+        assertEquals(0,new InvoiceGenerator().generateInvoice(rideDetails),0.1);
     }
 
-    @Test
-    public void shouldTestEmptyTimeValue() {
-        assertEquals(0, new InvoiceGenerator().generateInvoice(0,0), 0.1);
-    }
 
     @Test
     public void shouldGenerateInvoiceForGivenDistanceAndTime() {
-        assertEquals(11, new InvoiceGenerator().generateInvoice(1,1), 0.1);
-        assertEquals(22, new InvoiceGenerator().generateInvoice(2,2), 0.1);
+        Map<Double,Double> rideDetails = new HashMap<>();
+        rideDetails.put(3.0,5.0);
+        assertEquals(35,new InvoiceGenerator().generateInvoice(rideDetails),0.1);
     }
 
-    @Test
-    public void shouldTestWithNegativeValueForDistance() {
-        assertEquals(0, new InvoiceGenerator().generateInvoice(-1,50),0.1);
-    }
 
-    @Test
-    public void shouldTestWithNegativeValueForTime() {
-        assertEquals(0, new InvoiceGenerator().generateInvoice(10,-50),0.1);
-    }
-
-    @Test
-    public void shouldTestWithBothNegativeValue() {
-        assertEquals(0, new InvoiceGenerator().generateInvoice(-10,-50),0.1);
-    }
 }
