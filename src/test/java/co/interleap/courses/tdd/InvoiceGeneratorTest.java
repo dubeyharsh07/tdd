@@ -13,7 +13,8 @@ public class InvoiceGeneratorTest {
     @Test
     public void shouldGenerateInvoiceForGivenATime(){
         List<Ride> rideDetails = new ArrayList<>();
-        assertEquals(0,new InvoiceGenerator().generateInvoice(rideDetails),0.1);
+        Invoice invoice = new Invoice(rideDetails);
+        assertEquals(0,invoice.getTotalFare(),0.1);
     }
 
 
@@ -21,7 +22,9 @@ public class InvoiceGeneratorTest {
     public void shouldGenerateInvoiceForGivenDistanceAndTime() {
         List<Ride> rideDetails = new ArrayList<>();
         rideDetails.add(new Ride(3.0, 5.0));
-        assertEquals(35,new InvoiceGenerator().generateInvoice(rideDetails),0.1);
+
+        Invoice invoice = new Invoice(rideDetails);
+        assertEquals(35,invoice.getTotalFare(),0.1);
     }
 
 
@@ -32,15 +35,20 @@ public class InvoiceGeneratorTest {
         rideDetails.add(new Ride(3.0, -5.0));
         rideDetails.add(new Ride(-3.0, -5.0));
 
-        assertEquals(0, new InvoiceGenerator().generateInvoice(rideDetails),0.1);
+        Invoice invoice = new Invoice(rideDetails);
+        assertEquals(0,invoice.getTotalFare(),0.1);
     }
 
     @Test
     public void shouldTestForMultipleRides() {
         List<Ride> rideDetails = new ArrayList<>();
-        rideDetails.add(new Ride(3.0, 3.0));
+        rideDetails.add(new Ride(3.0, 4.0));
         rideDetails.add(new Ride(5.0, 30.0));
 
-        assertEquals(113, new InvoiceGenerator().generateInvoice(rideDetails),0.1);
+        Invoice invoice = new Invoice(rideDetails);
+
+        assertEquals(114, invoice.getTotalFare(),0.1);
+        assertEquals(2, invoice.getTotalNumberOfRides(),0.1);
+        assertEquals(57, invoice.getAvgFarePerRide(),0.1);
     }
 }
